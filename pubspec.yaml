@@ -38,6 +38,7 @@ dependencies:
   get_it: ^7.2.0
   state_notifier: ^0.7.1
   riverpod: ^1.0.3
+  uuid: ^3.0.5
 
 dev_dependencies:
   flutter_test:

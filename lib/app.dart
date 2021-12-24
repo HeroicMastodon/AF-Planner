@@ -1,4 +1,4 @@
-import 'package:af_planner/task_manager/tasks_widget.dart';
+import 'package:af_planner/task_manager/task_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it_hooks/get_it_hooks.dart';
 
@@ -19,7 +19,7 @@ class MyApp extends HookWidget {
         appBar: AppBar(
           title: const Text("Planner"),
         ),
-        body: TasksWidget(),
+        body: TaskManager(),
       ),
     );
   }

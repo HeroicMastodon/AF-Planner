@@ -1,5 +1,5 @@
-import 'package:af_planner/task_manager/tasks_model.dart';
-import 'package:af_planner/task_manager/tasks_service.dart';
+import 'package:af_planner/task_manager/task_manager_model.dart';
+import 'package:af_planner/task_manager/task_manager_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it_hooks/get_it_hooks.dart';
 
@@ -33,7 +33,7 @@ class TaskListItemWidget extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final service = useGet<TasksService>();
+    final service = useGet<TaskManagerService>();
     return Padding(
       padding: const EdgeInsets.only(left: 16.0),
       child: Container(
