@@ -1,4 +1,4 @@
-import 'package:af_planner/tasks/tasks_model.dart';
+import 'package:af_planner/task_manager/tasks_model.dart';
 import 'package:get_it/get_it.dart';
 
 class TasksService {

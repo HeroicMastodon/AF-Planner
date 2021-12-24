@@ -15,12 +15,15 @@ class TaskListModel extends ChangeNotifier {
   }
 
   void addTask(TaskModel task) {
-    _tasks.add(task);
+    tasks = [...tasks, task];
     notifyListeners();
   }
 
   void removeTask(TaskModel task) {
-    _tasks.remove(task);
+    tasks = [
+      for (final item in tasks)
+        if (item != task) item
+    ];
     notifyListeners();
   }
 }
