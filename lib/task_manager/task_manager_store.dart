@@ -1,12 +1,9 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
-import 'task_manager_model.dart';
+import 'models/task_list_model.dart';
 
 class TaskManagerStore extends ChangeNotifier {
-  TaskManagerStore() {
-    _taskList = TaskListModel(this);
-  }
-  late TaskListModel _taskList;
+  TaskListModel _taskList = TaskListModel();
   set taskList(TaskListModel value) {
     _taskList = value;
     notifyListeners();

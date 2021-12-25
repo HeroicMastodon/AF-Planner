@@ -1,5 +1,5 @@
 import 'package:af_planner/task_manager/task_manager_store.dart';
-import 'package:af_planner/task_manager/task_manager_model.dart';
+import 'package:af_planner/task_manager/models/task_model.dart';
 import 'package:get_it/get_it.dart';
 
 class TaskManagerService {

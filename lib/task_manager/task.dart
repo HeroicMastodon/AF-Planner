@@ -1,31 +1,12 @@
-import 'package:af_planner/task_manager/task_manager_model.dart';
-import 'package:af_planner/task_manager/task_manager_service.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get_it_hooks/get_it_hooks.dart';
 
-class TaskListWidget extends HookWidget {
-  const TaskListWidget({Key? key, required this.tasks, this.isChild = false})
-      : super(key: key);
+import 'models/task_model.dart';
+import 'task_manager_service.dart';
 
-  final List<TaskModel> tasks;
-  final bool isChild;
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemBuilder: itemBuilder,
-      itemCount: tasks.length,
-      shrinkWrap: isChild,
-    );
-  }
-
-  Widget itemBuilder(context, index) {
-    return TaskListItemWidget(task: tasks[index], index: index,);
-  }
-}
-
-class TaskListItemWidget extends HookWidget {
-  const TaskListItemWidget({Key? key, required this.task, required this.index}) : super(key: key);
+class Task extends HookWidget {
+  const Task({Key? key, required this.task, required this.index}) : super(key: key);
 
   final TaskModel task;
   final int index;
