@@ -6,16 +6,16 @@ import 'models/task_model.dart';
 import 'task_manager_service.dart';
 
 class Task extends HookWidget {
-  const Task({Key? key, required this.task, required this.index})
+  const Task({Key? key, required this.task})
       : super(key: key);
 
   final TaskModel task;
-  final int index;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final service = useGet<TaskManagerService>();
+    final watchedTask = useListenable(task);
     return ListItem(
         divider: true,
         onTap: () => print('tapped'),
@@ -37,14 +37,16 @@ class Task extends HookWidget {
           splashRadius: 16,
           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
           onChanged: (value) {
-            task.isComplete = value ?? false;
-            service.updateTask(task, index);
+            // task.isComplete = value ?? false;
+            service.completeTask(task, value ?? false);
           },
           shape: const CircleBorder(),
         ),
-        children: [
-          for (var i = 1; i < task.children.length; i++)
-            Task(index: i, task: task.children[i])
-        ]);
+        children: task.children.map((e) => Task(task: e)).toList()
+        // [
+        //   for (var i = 1; i < task.children.length; i++)
+        //     Task(index: i, task: task.children[i])
+        // ]
+        );
   }
 }

@@ -25,6 +25,6 @@ class TaskList extends HookWidget {
   }
 
   Widget itemBuilder(context, index) {
-    return Task(task: tasks[index], index: index,);
+    return Task(task: tasks[index]);
   }
 }

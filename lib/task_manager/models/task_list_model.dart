@@ -12,8 +12,21 @@ class TaskListModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateTask(TaskModel task, int index) =>
+  void updateTask(TaskModel task) =>
       tasks = [for (final item in tasks) item.id == task.id ? task : item];
+
+  void completeTask(TaskModel task, bool complete) {
+    task.isComplete = complete;
+
+    completeChildren(task.children, complete);
+  }
+
+  void completeChildren(List<TaskModel> tasks, bool complete) {
+    for (final task in tasks) {
+      task.isComplete = complete;
+      completeChildren(task.children, complete);
+    }
+  }
 
   void addTask(TaskModel task) => tasks = [...tasks, task];
 

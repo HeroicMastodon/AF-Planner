@@ -17,7 +17,11 @@ class TaskManagerService {
     store.taskList.removeTask(task);
   }
 
-  void updateTask(TaskModel task, int index) {
-    store.taskList.updateTask(task, index);
+  void updateTask(TaskModel task) {
+    store.taskList.updateTask(task);
+  }
+
+  void completeTask(TaskModel task, bool complete) {
+    store.taskList.completeTask(task, complete);
   }
 }

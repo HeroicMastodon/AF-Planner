@@ -24,6 +24,12 @@ void configureTasks() {
       final subtask = TaskModel();
       subtask.name = (i + j).toString();
       task.children.add(subtask);
+      //
+      // for (int k = 0; k < 3; k++) {
+      //   final nested = TaskModel();
+      //   nested.name = '${subtask.name} ${k}';
+      //   subtask.children.add(nested);
+      // }
     }
 
     tasks.addTask(task);
