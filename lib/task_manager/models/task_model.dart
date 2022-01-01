@@ -64,18 +64,23 @@ class TaskModel extends ChangeNotifier {
   }
 
   String get id => _id;
-// List<TaskModel> _children = [];
-// set children(List<TaskModel> value) {
-//   _children = value;
-//   notifyListeners();
-// }
-// List<TaskModel> get children => _children;
-// void addChild(TaskModel value) {
-//   _children.add(value);
-//   notifyListeners();
-// }
-// void removeChild(TaskModel value) {
-//   _children.remove(value);
-//   notifyListeners();
-// }
+
+  List<TaskModel> _children = [];
+
+  set children(List<TaskModel> value) {
+    _children = value;
+    notifyListeners();
+  }
+
+  List<TaskModel> get children => _children;
+
+  void addChild(TaskModel value) {
+    _children.add(value);
+    notifyListeners();
+  }
+
+  void removeChild(TaskModel value) {
+    _children.remove(value);
+    notifyListeners();
+  }
 }

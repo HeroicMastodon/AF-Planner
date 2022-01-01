@@ -14,10 +14,13 @@ class TaskList extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemBuilder: itemBuilder,
-      itemCount: tasks.length,
-      shrinkWrap: isChild,
+    return Padding(
+      padding: const EdgeInsets.only(left: 16.0),
+      child: ListView.builder(
+        itemBuilder: itemBuilder,
+        itemCount: tasks.length,
+        shrinkWrap: isChild,
+      ),
     );
   }
 

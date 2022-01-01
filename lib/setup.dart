@@ -13,12 +13,18 @@ void configureTasks() {
   
   // TODO: remove
   final tasks = GetIt.I.get<TaskManagerService>().store.taskList;
-  for(int i = 0; i < 10; i++) {
+  for(int i = 0; i < 4; i++) {
     final task = TaskModel();
     task.name = i.toString();
     task.description = i % 2 == 0 ? "" : "description";
     task.priority = i % 4;
     task.dueDate = DateTime(2021, i, i);
+
+    for(int j = 0; j < 3; j++) {
+      final subtask = TaskModel();
+      subtask.name = (i + j).toString();
+      task.children.add(subtask);
+    }
 
     tasks.addTask(task);
   }
