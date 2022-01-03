@@ -1,19 +1,17 @@
+import 'package:af_planner/task_manager/models/section_model.dart';
 import 'package:flutter/material.dart';
 
 import 'task_model.dart';
 
 class TaskListModel extends ChangeNotifier {
-  List<TaskModel> _tasks = [];
+  List<SectionModel> _sections = [];
 
-  List<TaskModel> get tasks => _tasks;
+  List<SectionModel> get sections => _sections;
 
-  set tasks(List<TaskModel> value) {
-    _tasks = value;
+  set sections(List<SectionModel> value) {
+    _sections = value;
     notifyListeners();
   }
-
-  void updateTask(TaskModel task) =>
-      tasks = [for (final item in tasks) item.id == task.id ? task : item];
 
   void completeTask(TaskModel task, bool complete) {
     task.isComplete = complete;
@@ -28,10 +26,17 @@ class TaskListModel extends ChangeNotifier {
     }
   }
 
-  void addTask(TaskModel task) => tasks = [...tasks, task];
+  void addTask(TaskModel task, SectionModel? section) {
+    if (section == null) {
+      sections.first.addTask(task);
+      return;
+    }
 
-  void removeTask(TaskModel task) => tasks = [
-    for (final item in tasks)
+    section.addTask(task);
+  }
+
+  void removeTask(TaskModel task) => sections = [
+    for (final item in sections)
       if (item != task) item
   ];
 }

@@ -6,7 +6,7 @@ import 'package:get_it_hooks/get_it_hooks.dart';
 class ListItem extends HookWidget {
   ListItem(
       {Key? key,
-      required this.content,
+      this.content,
       this.left,
       this.right,
       this.divider = false,
@@ -15,7 +15,7 @@ class ListItem extends HookWidget {
       this.collapsable = true})
       : super(key: key);
 
-  Widget content;
+  Widget? content;
   Widget? left;
   Widget? right;
   List<Widget> children;
@@ -37,13 +37,14 @@ class ListItem extends HookWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (left != null) left!,
-            Expanded(
-                child: MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: GestureDetector(
-                        onTap: onTap,
-                        behavior: HitTestBehavior.opaque,
-                        child: content))),
+            if (content != null)
+              Expanded(
+                  child: MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: GestureDetector(
+                          onTap: onTap,
+                          behavior: HitTestBehavior.opaque,
+                          child: content))),
             if (right != null) right!,
             if (collapsable && children.isNotEmpty)
               RotationTransition(

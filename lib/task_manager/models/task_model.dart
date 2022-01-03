@@ -1,3 +1,4 @@
+import 'package:af_planner/task_manager/models/section_model.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
@@ -83,4 +84,11 @@ class TaskModel extends ChangeNotifier {
     _children.remove(value);
     notifyListeners();
   }
+
+  SectionModel? _section;
+  set section(SectionModel? value) {
+    _section = value;
+    notifyListeners();
+  }
+  SectionModel? get section => _section;
 }

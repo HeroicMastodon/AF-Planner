@@ -12,7 +12,7 @@ class TaskManager extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final service = useGet<TaskManagerService>();
-    final tasks = useWatchXOnly((TaskManagerStore store) => store.taskList, (TaskListModel taskList) => taskList.tasks);
-    return TaskList(tasks: tasks);
+    final tasks = useWatchXOnly((TaskManagerStore store) => store.taskList, (TaskListModel taskList) => taskList.sections);
+    return TaskList(sections: tasks);
   }
 }
