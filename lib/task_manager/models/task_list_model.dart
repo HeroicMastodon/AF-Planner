@@ -13,17 +13,29 @@ class TaskListModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void completeTask(TaskModel task, bool complete) {
-    task.isComplete = complete;
+  List<String> completeTask(TaskModel task) {
+    task.isComplete = true;
 
-    completeChildren(task.children, complete);
+
+    final updatedIds = <String>[];
+    updatedIds.add(task.id);
+
+    completeChildren(task.children, updatedIds);
+    return updatedIds;
   }
 
-  void completeChildren(List<TaskModel> tasks, bool complete) {
+  void completeChildren(List<TaskModel> tasks, List<String> updateIds) {
     for (final task in tasks) {
-      task.isComplete = complete;
-      completeChildren(task.children, complete);
+      if (!task.isComplete) {
+        updateIds.add(task.id);
+      }
+      task.isComplete = true;
+      completeChildren(task.children, updateIds);
     }
+  }
+
+  void uncompleteTask(TaskModel task) {
+    task.isComplete = false;
   }
 
   void addTask(TaskModel task, SectionModel? section) {
@@ -36,7 +48,23 @@ class TaskListModel extends ChangeNotifier {
   }
 
   void removeTask(TaskModel task) => sections = [
-    for (final item in sections)
-      if (item != task) item
+    for (final section in sections)
+      if (section != task) section
   ];
+
+  void reorderTasks() {
+    final newSections = <SectionModel>[];
+
+    for(final section in sections) {
+      section.tasks.sort((left, right) {
+        if (left.isComplete == right.isComplete) return 0;
+        if (left.isComplete) return 1;
+        return -1;
+      });
+
+      newSections.add(section);
+    }
+
+    sections = newSections;
+  }
 }

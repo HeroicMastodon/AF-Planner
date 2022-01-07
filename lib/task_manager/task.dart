@@ -5,11 +5,14 @@ import 'package:get_it_hooks/get_it_hooks.dart';
 import 'models/task_model.dart';
 import 'task_manager_service.dart';
 
+typedef OnUncompleteCallback = void Function(List<TaskModel> tasks);
+
 class Task extends HookWidget {
-  const Task({Key? key, required this.task})
+  const Task({Key? key, required this.task, this.onUncomplete})
       : super(key: key);
 
   final TaskModel task;
+  final OnUncompleteCallback? onUncomplete;
 
   @override
   Widget build(BuildContext context) {
@@ -38,11 +41,35 @@ class Task extends HookWidget {
           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
           onChanged: (value) {
             // task.isComplete = value ?? false;
-            service.completeTask(task, value ?? false);
+            if (value == true) {
+              service.completeTask(task);
+            } else if (onUncomplete != null) {
+              onUncomplete!([task]);
+            } else {
+              service.uncompleteTasks([task]);
+            }
           },
           shape: const CircleBorder(),
         ),
-        children: task.children.map((e) => Task(task: e)).toList()
+        children: task.children
+            .map((e) => Task(
+                  task: e,
+                  onUncomplete: (tasks) {
+                    if (!task.isComplete) {
+                      service.uncompleteTasks(tasks);
+                      return;
+                    }
+
+                    tasks.add(task);
+                    if (onUncomplete != null) {
+                      onUncomplete!(tasks);
+                      return;
+                    }
+
+                    service.uncompleteTasks(tasks);
+                  },
+                ))
+            .toList()
         // [
         //   for (var i = 1; i < task.children.length; i++)
         //     Task(index: i, task: task.children[i])

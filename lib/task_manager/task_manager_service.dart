@@ -18,7 +18,15 @@ class TaskManagerService {
     store.taskList.removeTask(task);
   }
 
-  void completeTask(TaskModel task, bool complete) {
-    store.taskList.completeTask(task, complete);
+  void completeTask(TaskModel task) {
+    store.taskList.completeTask(task);
+    store.taskList.reorderTasks();
+  }
+
+  void uncompleteTasks(List<TaskModel>tasks) {
+    for (var task in tasks) {
+      store.taskList.uncompleteTask(task);
+    }
+    store.taskList.reorderTasks();
   }
 }
