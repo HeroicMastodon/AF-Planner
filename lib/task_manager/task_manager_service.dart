@@ -15,18 +15,20 @@ class TaskManagerService {
   }
 
   void removeTask(TaskModel task) {
-    store.taskList.removeTask(task);
+    store.removeTask(task);
   }
 
   void completeTask(TaskModel task) {
     store.taskList.completeTask(task);
-    store.taskList.reorderTasks();
+  }
+
+  void uncompleteTask(TaskModel task) {
+    store.uncompleteTask(task);
   }
 
   void uncompleteTasks(List<TaskModel>tasks) {
     for (var task in tasks) {
       store.taskList.uncompleteTask(task);
     }
-    store.taskList.reorderTasks();
   }
 }

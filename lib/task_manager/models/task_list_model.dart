@@ -13,9 +13,15 @@ class TaskListModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  List<TaskModel> _unassignedTasks = [];
+  set unassignedTasks(List<TaskModel> value) {
+    _unassignedTasks = value;
+    notifyListeners();
+  }
+  List<TaskModel> get unassignedTasks => _unassignedTasks;
+
   List<String> completeTask(TaskModel task) {
     task.isComplete = true;
-
 
     final updatedIds = <String>[];
     updatedIds.add(task.id);
@@ -40,17 +46,12 @@ class TaskListModel extends ChangeNotifier {
 
   void addTask(TaskModel task, SectionModel? section) {
     if (section == null) {
-      sections.first.addTask(task);
+      unassignedTasks = [...unassignedTasks, task];
       return;
     }
 
     section.addTask(task);
   }
-
-  void removeTask(TaskModel task) => sections = [
-    for (final section in sections)
-      if (section != task) section
-  ];
 
   void reorderTasks() {
     final newSections = <SectionModel>[];

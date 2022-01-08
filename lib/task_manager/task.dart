@@ -21,7 +21,7 @@ class Task extends HookWidget {
     final watchedTask = useListenable(task);
     return ListItem(
         divider: true,
-        onTap: () => print('tapped'),
+        onTap: () => service.removeTask(task),
         content: Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: Column(
@@ -43,10 +43,12 @@ class Task extends HookWidget {
             // task.isComplete = value ?? false;
             if (value == true) {
               service.completeTask(task);
-            } else if (onUncomplete != null) {
-              onUncomplete!([task]);
-            } else {
-              service.uncompleteTasks([task]);
+            } //else if (onUncomplete != null) {
+            // onUncomplete!([task]);
+            //}
+            else {
+              print("uncompleting...");
+              service.uncompleteTask(task);
             }
           },
           shape: const CircleBorder(),

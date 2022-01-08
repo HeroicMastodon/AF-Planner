@@ -66,6 +66,13 @@ class TaskModel extends ChangeNotifier {
 
   String get id => _id;
 
+  String? _parentId;
+  set parentId(String? value) {
+    _parentId = value;
+    notifyListeners();
+  }
+  String? get parentId => _parentId;
+
   List<TaskModel> _children = [];
 
   set children(List<TaskModel> value) {
@@ -84,6 +91,13 @@ class TaskModel extends ChangeNotifier {
     _children.remove(value);
     notifyListeners();
   }
+
+  String? _sectionId;
+  set sectionId(String? value) {
+    _sectionId = value;
+    notifyListeners();
+  }
+  String? get sectionId => _sectionId;
 
   SectionModel? _section;
   set section(SectionModel? value) {

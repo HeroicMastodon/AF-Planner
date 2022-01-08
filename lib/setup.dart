@@ -12,24 +12,49 @@ void configureTasks() {
   GetIt.I.registerSingleton(TaskManagerStore());
   GetIt.I.registerSingleton(TaskManagerService());
 
-  // TODO: remove
-  final tasks = GetIt.I.get<TaskManagerService>().store.taskList;
+  addTestTasks();
 
-  final firstSection = SectionModel();
-  addTasksToSection(firstSection);
-  tasks.sections.add(firstSection);
+}
 
+void addTestTasks() {
+  final sectionList = <SectionModel>[];
+  final taskList = <TaskModel>[];
 
   for (int i = 0; i < 3; i++) {
-    final section = SectionModel();
-    section.position = i+1;
-    section.name = 'Section ${section.position}';
+    String? sectionId;
+    if (i > 0) {
+      final section = SectionModel();
+      sectionId = section.id;
+      section.name = "Section $i";
+      section.position = i;
 
-    addTasksToSection(section);
+      sectionList.add(section);
+    }
 
-    tasks.sections.add(section);
+    for (int j = 0; j < 3; j++) {
+      final task = TaskModel();
+      task.name = j.toString();
+      taskList.add(task);
+      task.sectionId = sectionId;
+
+      for (int k = 0; k < 3; k++) {
+        final child = TaskModel();
+        child.name = "child $k";
+        child.parentId = task.id;
+        taskList.add(child);
+
+        // for (int l = 0; l < 3; l++) {
+        //   final grandChild = TaskModel();
+        //   grandChild.name = "grand child $l";
+        //   grandChild.parentId = child.id;
+        //   taskList.add(grandChild);
+        // }
+      }
+    }
   }
 
+  final store = GetIt.I.get<TaskManagerStore>();
+  store.initializeStore(taskList, sectionList);
 }
 
 void addTasksToSection(SectionModel section) {
