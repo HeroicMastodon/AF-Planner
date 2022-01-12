@@ -10,7 +10,8 @@ class ListItem extends HookWidget {
       this.divider = false,
       this.children = const [],
       this.onTap,
-      this.collapsable = true})
+      this.collapsable = true,
+      this.animationDuration = const Duration(milliseconds: 200)})
       : super(key: key);
 
   Widget? content;
@@ -20,14 +21,16 @@ class ListItem extends HookWidget {
   bool divider;
   GestureTapCallback? onTap;
   bool collapsable;
+  Duration animationDuration;
+
 
   @override
   Widget build(BuildContext context) {
     var collapsed = useState(false);
     var indicatorController = useAnimationController(
-        duration: Duration(milliseconds: 200), upperBound: .5);
+        duration: animationDuration, upperBound: .5);
     var expandController = useAnimationController(
-        duration: Duration(milliseconds: 200), initialValue: 1);
+        duration: animationDuration, initialValue: 1);
 
     return Column(
       children: [

@@ -66,6 +66,13 @@ class TaskModel extends ChangeNotifier {
 
   String get id => _id;
 
+  String? _parentId;
+  set parentId(String? value) {
+    _parentId = value;
+    notifyListeners();
+  }
+  String? get parentId => _parentId;
+
   List<TaskModel> _children = [];
 
   set children(List<TaskModel> value) {
@@ -85,10 +92,45 @@ class TaskModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  String? _sectionId;
+  set sectionId(String? value) {
+    _sectionId = value;
+    notifyListeners();
+  }
+  String? get sectionId => _sectionId;
+
   SectionModel? _section;
   set section(SectionModel? value) {
     _section = value;
     notifyListeners();
   }
   SectionModel? get section => _section;
+
+  TaskModel clone({ bool includeId = false }) {
+    var newTask = TaskModel();
+
+    if (includeId) newTask.id = id;
+    newTask.isComplete = isComplete;
+    newTask.name = name;
+    newTask.children = children;
+    newTask.dueDate = dueDate;
+    newTask.priority = priority;
+    newTask.sectionId = sectionId;
+    newTask.section = section;
+    newTask.description = description;
+
+    return newTask;
+  }
+
+  void copyFrom(TaskModel src, { bool includeId = false}) {
+    if (includeId) id = src.id;
+    name = src.name;
+    description = src.description;
+    isComplete = src.isComplete;
+    children = src.children;
+    section = src.section;
+    sectionId = src.sectionId;
+    priority = src.priority;
+    dueDate = src.dueDate;
+  }
 }

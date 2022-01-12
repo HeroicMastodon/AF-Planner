@@ -1,4 +1,5 @@
 import 'package:af_planner/shared/widgets/list_item.dart';
+import 'package:af_planner/task_manager/task_form.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it_hooks/get_it_hooks.dart';
 
@@ -21,7 +22,14 @@ class Task extends HookWidget {
     final watchedTask = useListenable(task);
     return ListItem(
         divider: true,
-        onTap: () => print('tapped'),
+        onTap: () =>
+            showTaskForm(
+                context: context,
+                model: watchedTask,
+                onSave: (TaskModel updatedTask) {
+                  watchedTask.copyFrom(updatedTask);
+                },
+              ),
         content: Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: Column(
@@ -43,10 +51,8 @@ class Task extends HookWidget {
             // task.isComplete = value ?? false;
             if (value == true) {
               service.completeTask(task);
-            } else if (onUncomplete != null) {
-              onUncomplete!([task]);
             } else {
-              service.uncompleteTasks([task]);
+              service.uncompleteTask(task);
             }
           },
           shape: const CircleBorder(),
@@ -54,26 +60,7 @@ class Task extends HookWidget {
         children: task.children
             .map((e) => Task(
                   task: e,
-                  onUncomplete: (tasks) {
-                    if (!task.isComplete) {
-                      service.uncompleteTasks(tasks);
-                      return;
-                    }
-
-                    tasks.add(task);
-                    if (onUncomplete != null) {
-                      onUncomplete!(tasks);
-                      return;
-                    }
-
-                    service.uncompleteTasks(tasks);
-                  },
                 ))
-            .toList()
-        // [
-        //   for (var i = 1; i < task.children.length; i++)
-        //     Task(index: i, task: task.children[i])
-        // ]
-        );
+            .toList());
   }
 }
