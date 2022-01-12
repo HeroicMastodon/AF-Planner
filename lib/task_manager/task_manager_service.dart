@@ -11,7 +11,7 @@ class TaskManagerService {
   final TaskManagerStore store = GetIt.I.get<TaskManagerStore>();
 
   void addTask(TaskModel task, SectionModel? section) {
-    store.taskList.addTask(task, section);
+    store.addTask(task);
   }
 
   void removeTask(TaskModel task) {

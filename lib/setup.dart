@@ -57,21 +57,3 @@ void addTestTasks() {
   store.initializeStore(taskList, sectionList);
 }
 
-void addTasksToSection(SectionModel section) {
-  
-  for (int k = 0; k < 4; k++) {
-    final task = TaskModel();
-    task.name = k.toString();
-    task.description = k % 2 == 0 ? "" : "description";
-    task.priority = k % 4;
-    task.dueDate = DateTime(2021, k, k);
-  
-    for (int j = 0; j < 3; j++) {
-      final subtask = TaskModel();
-      subtask.name = (k + j).toString();
-      task.children.add(subtask);
-    }
-  
-    section.addTask(task);
-  }
-}

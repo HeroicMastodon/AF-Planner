@@ -43,11 +43,7 @@ class Task extends HookWidget {
             // task.isComplete = value ?? false;
             if (value == true) {
               service.completeTask(task);
-            } //else if (onUncomplete != null) {
-            // onUncomplete!([task]);
-            //}
-            else {
-              print("uncompleting...");
+            } else {
               service.uncompleteTask(task);
             }
           },
@@ -56,26 +52,7 @@ class Task extends HookWidget {
         children: task.children
             .map((e) => Task(
                   task: e,
-                  onUncomplete: (tasks) {
-                    if (!task.isComplete) {
-                      service.uncompleteTasks(tasks);
-                      return;
-                    }
-
-                    tasks.add(task);
-                    if (onUncomplete != null) {
-                      onUncomplete!(tasks);
-                      return;
-                    }
-
-                    service.uncompleteTasks(tasks);
-                  },
                 ))
-            .toList()
-        // [
-        //   for (var i = 1; i < task.children.length; i++)
-        //     Task(index: i, task: task.children[i])
-        // ]
-        );
+            .toList());
   }
 }

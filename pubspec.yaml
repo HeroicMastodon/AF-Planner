@@ -40,6 +40,9 @@ dependencies:
   riverpod: ^1.0.3
   uuid: ^3.0.5
   reorderables: ^0.4.2
+  popover: ^0.2.6+3
+  flutter_speed_dial: ^5.0.0+1
+  modal_bottom_sheet: ^2.0.0
 
 dev_dependencies:
   flutter_test:
