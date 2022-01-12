@@ -1,4 +1,5 @@
 import 'package:af_planner/shared/widgets/list_item.dart';
+import 'package:af_planner/task_manager/task_form.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it_hooks/get_it_hooks.dart';
 
@@ -21,7 +22,14 @@ class Task extends HookWidget {
     final watchedTask = useListenable(task);
     return ListItem(
         divider: true,
-        onTap: () => service.removeTask(task),
+        onTap: () =>
+            showTaskForm(
+                context: context,
+                model: watchedTask,
+                onSave: (TaskModel updatedTask) {
+                  watchedTask.copyFrom(updatedTask);
+                },
+              ),
         content: Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: Column(
