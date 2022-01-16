@@ -19,16 +19,14 @@ class TaskManagerService {
   }
 
   void completeTask(TaskModel task) {
-    store.taskList.completeTask(task);
+    store.completeTask(task);
+  }
+
+  void updateTask(TaskModel task) {
+    store.updateTask(task);
   }
 
   void uncompleteTask(TaskModel task) {
     store.uncompleteTask(task);
-  }
-
-  void uncompleteTasks(List<TaskModel>tasks) {
-    for (var task in tasks) {
-      store.taskList.uncompleteTask(task);
-    }
   }
 }

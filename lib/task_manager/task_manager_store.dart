@@ -107,4 +107,9 @@ class TaskManagerStore extends ChangeNotifier {
 
     taskList.sections = sections;
   }
+
+  updateTask(TaskModel task) {
+    final original = _taskMap[task.id];
+    original?.copyFrom(task);
+  }
 }

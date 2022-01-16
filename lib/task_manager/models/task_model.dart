@@ -108,29 +108,21 @@ class TaskModel extends ChangeNotifier {
 
   TaskModel clone({ bool includeId = false }) {
     var newTask = TaskModel();
-
-    if (includeId) newTask.id = id;
-    newTask.isComplete = isComplete;
-    newTask.name = name;
-    newTask.children = children;
-    newTask.dueDate = dueDate;
-    newTask.priority = priority;
-    newTask.sectionId = sectionId;
-    newTask.section = section;
-    newTask.description = description;
+    newTask.copyFrom(this, includeId: includeId);
 
     return newTask;
   }
 
   void copyFrom(TaskModel src, { bool includeId = false}) {
-    if (includeId) id = src.id;
-    name = src.name;
-    description = src.description;
-    isComplete = src.isComplete;
-    children = src.children;
-    section = src.section;
-    sectionId = src.sectionId;
-    priority = src.priority;
-    dueDate = src.dueDate;
+    if (includeId) _id = src.id;
+    _name = src.name;
+    _description = src.description;
+    _isComplete = src.isComplete;
+    _children = src.children;
+    _section = src.section;
+    _sectionId = src.sectionId;
+    _priority = src.priority;
+    _dueDate = src.dueDate;
+    notifyListeners();
   }
 }

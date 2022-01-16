@@ -1,4 +1,5 @@
 import 'package:af_planner/task_manager/models/task_model.dart';
+import 'package:af_planner/task_manager/quick_add_form.dart';
 import 'package:af_planner/task_manager/task_form.dart';
 import 'package:af_planner/task_manager/task_manager.dart';
 import 'package:af_planner/task_manager/task_manager_service.dart';
@@ -52,10 +53,21 @@ class MyApp extends HookWidget {
                             child: Icon(Icons.add_task,
                                 color: theme.colorScheme.primary),
                             onTap: () {
-                              showTaskForm(context: context, isQuick: true, onSave: saveNewTask(service));
+                              showQuickAdd(
+                                  context: context,
+                                  onQuickAdd: (name, description) {
+                                    final task = TaskModel();
+                                    task.name = name;
+                                    task.description = description;
+                                    service.addTask(task, null);
+                                  });
                             },
                             onLongPress: () {
-                              showTaskForm(context: context, onSave: saveNewTask(service));
+                              showTaskForm(
+                                  context: context,
+                                  onSave: (TaskModel newTask) {
+                                    service.addTask(newTask, null);
+                                  });
                             })
                       ],
                     ),
@@ -76,8 +88,4 @@ class MyApp extends HookWidget {
               )),
     );
   }
-
-  saveNewTask(TaskManagerService service) => (TaskModel newTask) {
-    service.addTask(newTask, null);
-  };
 }

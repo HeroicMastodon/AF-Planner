@@ -27,7 +27,7 @@ class Task extends HookWidget {
                 context: context,
                 model: watchedTask,
                 onSave: (TaskModel updatedTask) {
-                  watchedTask.copyFrom(updatedTask);
+                  service.updateTask(updatedTask);
                 },
               ),
         content: Padding(
@@ -47,6 +47,7 @@ class Task extends HookWidget {
           visualDensity: VisualDensity.compact,
           splashRadius: 16,
           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          activeColor: Theme.of(context).colorScheme.primary,
           onChanged: (value) {
             // task.isComplete = value ?? false;
             if (value == true) {
