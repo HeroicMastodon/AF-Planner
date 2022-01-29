@@ -40,52 +40,86 @@ class TaskForm extends HookWidget {
         }
         return shouldClose.value;
       },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: Column(
-          children: [
-            Row(
+      child: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 0.0),
+          child: SingleChildScrollView(
+            child: Column(
               children: [
-                Expanded(
-                  child: TextFormField(
-                    autofocus: true,
-                    autocorrect: true,
-                    initialValue: newTask.value.name,
-                    onChanged: (value) {
-                      newTask.value.name = value;
-                      shouldClose.value = false;
-                    },
-                    decoration: const InputDecoration(
-                      hintText: "Name",
-                      border: InputBorder.none,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        Navigator.of(context).maybePop();
+                      },
+                      icon: const Icon(Icons.arrow_back),
+                      splashRadius: 20,
+                      padding: EdgeInsets.zero,
                     ),
-                  ),
+                    IconButton(
+                      onPressed: () {
+                        shouldClose.value = true;
+                        onSave(newTask.value);
+                        Navigator.of(context).maybePop();
+                      },
+                      icon: const Icon(Icons.save),
+                      splashRadius: 20,
+                    ),
+                  ],
                 ),
-                IconButton(
-                  onPressed: () {
-                    shouldClose.value = true;
-                    onSave(newTask.value);
-                    Navigator.of(context).pop();
-                  },
-                  icon: const Icon(Icons.save),
-                  splashRadius: 20,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: TextFormField(
+                              autofocus: true,
+                              autocorrect: true,
+                              initialValue: newTask.value.name,
+                              onChanged: (value) {
+                                newTask.value.name = value;
+                                shouldClose.value = false;
+                              },
+                              decoration: const InputDecoration(
+                                hintText: "Name",
+                                border: InputBorder.none,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      TextFormField(
+                        initialValue: newTask.value.description,
+                        onChanged: (value) {
+                          newTask.value.description = value;
+                          shouldClose.value = true;
+                        },
+                        decoration: const InputDecoration(
+                            hintText: "Description", border: InputBorder.none),
+                        style: const TextStyle(fontWeight: FontWeight.w200),
+                        minLines: 2,
+                        maxLines: null,
+                        keyboardType: TextInputType.multiline,
+                      ),
+                      Text("Start Date"),
+                      Text("Due Date"),
+                      Text("Repeat"),
+                      Text("Priority"),
+                      Text("Location"),
+                      Text("Subtasks"),
+                      Text("Reminders"),
+                      Text("attachments"),
+                      Text("Calendars"),
+                      Text("Timer")
+                    ],
+                  ),
                 ),
               ],
             ),
-            TextFormField(
-              initialValue: newTask.value.description,
-              onChanged: (value) {
-                newTask.value.description = value;
-                shouldClose.value = true;
-              },
-              decoration: const InputDecoration(
-                  hintText: "Description", border: InputBorder.none),
-              style: const TextStyle(fontWeight: FontWeight.w200),
-              minLines: 2,
-              maxLines: null,
-              keyboardType: TextInputType.multiline,
-            ),
-          ],
+          ),
         ),
       ),
     );
@@ -103,8 +137,9 @@ showTaskForm(
       task: model ?? TaskModel(),
       onSave: onSave,
     ),
-    expand: false,
-    shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(15))),
+    expand: true,
+    duration: const Duration(milliseconds: 300),
+    // shape: const RoundedRectangleBorder(
+    //     borderRadius: BorderRadius.vertical(top: Radius.circular(15))),
   );
 }

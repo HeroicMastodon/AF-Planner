@@ -1,5 +1,3 @@
-import 'package:af_planner/task_manager/models/task_model.dart';
-import 'package:af_planner/task_manager/task.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it_hooks/get_it_hooks.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -101,6 +99,7 @@ showQuickAdd({required BuildContext context, required OnQuickAdd onQuickAdd}) {
       context: context,
       builder: (context) => QuickAddForm(onQuickAdd: onQuickAdd),
       expand: false,
+      duration: const Duration(milliseconds: 300),
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(15))));
 }

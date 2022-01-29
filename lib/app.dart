@@ -1,3 +1,4 @@
+import 'package:af_planner/shared/widgets/action_dialog.dart';
 import 'package:af_planner/task_manager/models/task_model.dart';
 import 'package:af_planner/task_manager/quick_add_form.dart';
 import 'package:af_planner/task_manager/task_form.dart';
@@ -38,38 +39,18 @@ class MyApp extends HookWidget {
                   ),
                   body: TaskManager(),
                   floatingActionButtonLocation:
-                      FloatingActionButtonLocation.endDocked,
+                      FloatingActionButtonLocation.centerDocked,
                   floatingActionButton: Visibility(
                     visible: MediaQuery.of(context).viewInsets.bottom < 90,
-                    child: SpeedDial(
-                      icon: Icons.add,
-                      activeIcon: Icons.close,
-                      backgroundColor: theme.colorScheme.primary,
-                      activeBackgroundColor: theme.backgroundColor,
-                      foregroundColor: theme.colorScheme.onPrimary,
-                      activeForegroundColor: theme.colorScheme.onBackground,
-                      children: [
-                        SpeedDialChild(
-                            child: Icon(Icons.add_task,
-                                color: theme.colorScheme.primary),
-                            onTap: () {
-                              showQuickAdd(
-                                  context: context,
-                                  onQuickAdd: (name, description) {
-                                    final task = TaskModel();
-                                    task.name = name;
-                                    task.description = description;
-                                    service.addTask(task, null);
-                                  });
-                            },
-                            onLongPress: () {
-                              showTaskForm(
-                                  context: context,
-                                  onSave: (TaskModel newTask) {
-                                    service.addTask(newTask, null);
-                                  });
-                            })
-                      ],
+                    child: ElevatedButton(
+                      onPressed: () => showQuickAdd(context: context, onQuickAdd: (name, description) {}),
+                      onLongPress: () => showActionDialog(context),
+                      child: Icon(Icons.add),
+                      style: ElevatedButton.styleFrom(
+                        shape: CircleBorder(),
+                        // padding: EdgeInsets.all(16),
+                        fixedSize: Size(48, 48),
+                      ),
                     ),
                   ),
                   bottomNavigationBar: BottomAppBar(
